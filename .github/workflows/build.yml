@@ -12,11 +12,11 @@ on:
 jobs:
   build-linux:
     if: ${{ github.event.inputs.build_for_linux == 'true' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm   # Native aarch64 runner
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
@@ -31,10 +31,10 @@ jobs:
       - name: Tar Nugget (Linux)
         run: |
           cd dist
-          tar -cJf Nugget_Linux.tar.xz Nugget
+          tar -cJf Nugget_Linux_aarch64.tar.xz Nugget
 
       - name: Upload TAR (Linux)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
-          name: Nugget_Linux
-          path: dist/Nugget_Linux.tar.xz
+          name: Nugget_Linux_aarch64
+          path: dist/Nugget_Linux_aarch64.tar.xz
